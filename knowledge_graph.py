@@ -22,13 +22,12 @@ class StanfordNER:
         self.get_stanford_ner_location()
 
     def get_stanford_ner_location(self):
-        print("Provide (relative/absolute) path to stanford ner package.\n Press carriage return to use './stanford-ner-2018-10-16' as path:") 
-        loc = input()
-        print("... Running stanford for NER; this may take some time ...")
-        if(loc == ''):
-            loc = "./stanford-ner-2018-10-16"
+      
+        loc = "knowledge-graph/stanford-ner-2018-10-16"
         self.stanford_ner_tagger = nltk.tag.StanfordNERTagger(loc+'/classifiers/english.all.3class.distsim.crf.ser.gz',
         loc+'/stanford-ner.jar')
+
+
 
     def ner(self,doc):
         sentences = nltk.sent_tokenize(doc)
@@ -224,26 +223,29 @@ def main():
 
     verbose = False
     execute_coref_resol = False
-    output_path = "./data/output/"
+    output_path = "knowledge-graph/data/output/"
     ner_pickles_op = output_path + "ner/"
     coref_cache_path = output_path + "caches/"
     coref_resolved_op = output_path + "kg/"
     
-    stanford_core_nlp_path = input("\n\nProvide (relative/absolute) path to stanford core nlp package.\n Press carriage return to use './stanford-corenlp-full-2018-10-05' as path:")
-    if(stanford_core_nlp_path == ''):
-        stanford_core_nlp_path = "./stanford-corenlp-full-2018-10-05"
+    
+    stanford_core_nlp_path = "knowledge-graph/stanford-corenlp-4.4.0"
+    
 
     file_list = []
-    for f in glob.glob('./data/input/*'):
+    for f in glob.glob('knowledge-graph/data/input/*'):
         file_list.append(f)
+    print(len(file_list))
 
     for file in file_list:
         with open(file,"r") as f:
             lines = f.read().splitlines()
-        
+        print(len(lines))
         doc = ""
         for line in lines:
+            print(line)
             doc += line
+        print(doc)
 
         if verbose:
             print("Read: \n",doc)
