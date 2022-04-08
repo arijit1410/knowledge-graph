@@ -7,7 +7,7 @@ def main():
 
      #create a list of pickle file names
     pickles = []
-    for file in glob.glob(os.getcwd() + "/data/output/ner/*.pickle"):
+    for file in glob.glob(os.getcwd() + "/knowledge-graph/data/output/ner/*.pickle"):
         pickles.append(file)
 
     #load each pickle file and create the resultant csv file
@@ -27,7 +27,7 @@ def main():
             file_name += str
             print(file_name)
 
-        df = pd.read_csv(curr_dir +"/data/output/kg/"+file_name+".txt-out.csv")
+        df = pd.read_csv(curr_dir +"/knowledge-graph/data/output/kg/"+file_name+".txt-out.csv")
         
         #parse every row present in the intermediate csv file
         triplet = set()
@@ -48,7 +48,7 @@ def main():
                     triplet.add(_)
         #convert the pandas dataframe into csv
         processed_pd = pd.DataFrame(list(triplet),columns=['Type','Entity 1','Relationship','Type', 'Entity2'])
-        processed_pd.to_csv('./data/result/' + file.split("/")[-1].split(".")[0] + '.csv', encoding='utf-8', index=False)
+        processed_pd.to_csv('./knowledge-graph/data/result/' + file.split("/")[-1].split(".")[0] + '.csv', encoding='utf-8', index=False)
 
         print("Processed " + file.split("/")[-1])
 
